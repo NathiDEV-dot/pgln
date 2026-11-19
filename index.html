@@ -57,10 +57,10 @@ dialog::backdrop{background:#101611a8}.dialog-head{display:flex;justify-content:
 </dialog>
 <script type="module">
 const projects = [
-  { name:'THE CUT', label:['THE','CUT.'], type:'BARBER STUDIO', color:'#f2a36e', ink:'#211715', description:'A barber studio website with a gallery and appointment booking.', url:'https://the-cut-barber-studio-nkosi.nathinice0125.chatgpt.site', x:-4.45, z:2.1 },
-  { name:'Game Night', label:['GAME','NIGHT'], type:'BROWSER GAME', color:'#c3d97f', ink:'#172719', description:'A charades game to play with friends.', url:'https://games-night-charades.nathinice0125.chatgpt.site', x:4.45, z:2.1 },
-  { name:'Portfolio OS', label:['PORTFOLIO','OS'], type:'INTERACTIVE PORTFOLIO', color:'#91c5b7', ink:'#142820', description:'A retro desktop you can explore in your browser.', url:'https://nkosi-desktop-portfolio.nathinice0125.chatgpt.site', x:-4.45, z:-3.7 },
-  { name:'$tussy — Mfana ko West', label:['$TUSSY'], type:'CREATIVE PORTFOLIO', color:'#d79db0', ink:'#3a1f2b', description:'A creative portfolio built around a device-inspired interface.', url:'https://frvky-desktop-recreation.nathinice0125.chatgpt.site', x:4.45, z:-3.7 }
+  { name:'THE CUT', description:'A barber studio website with a gallery and appointment booking.', url:'https://the-cut-barber-studio-nkosi.nathinice0125.chatgpt.site', x:-4.45, z:2.1 },
+  { name:'Game Night', description:'A charades game to play with friends.', url:'https://games-night-charades.nathinice0125.chatgpt.site', x:4.45, z:2.1 },
+  { name:'Portfolio OS', description:'A retro desktop you can explore in your browser.', url:'https://nkosi-desktop-portfolio.nathinice0125.chatgpt.site', x:-4.45, z:-3.7 },
+  { name:'$tussy — Mfana ko West', description:'A creative portfolio built around a device-inspired interface.', url:'https://frvky-desktop-recreation.nathinice0125.chatgpt.site', x:4.45, z:-3.7 }
 ];
 const canvas = document.querySelector('#world');
 const directory = document.querySelector('#directory');
@@ -236,24 +236,11 @@ try {
     }
   }
 
-  function contactShadow(width,depth,x,z) {
-    const texture = graphic(128,128,(ctx,w,h) => {
-      const shade = ctx.createRadialGradient(w/2,h/2,17,w/2,h/2,63);
-      shade.addColorStop(0,'#191b16a6');
-      shade.addColorStop(1,'#191b1600');
-      ctx.fillStyle=shade;
-      ctx.fillRect(0,0,w,h);
-    });
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width,depth),new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false}));
-    mesh.position.set(x,.008,z);
-    mesh.rotation.x=-Math.PI/2;
-    scene.add(mesh);
-  }
   const exhibits = [
-    {title:'THE BARBER STUDIO', wall:'#382723', trim:'#d6a57a', floor:'#634236', light:'#ffad74', base:'#5d3027'},
-    {title:'THE GAME LOUNGE', wall:'#292343', trim:'#c6e772', floor:'#493762', light:'#c3a3ff', base:'#534286'},
-    {title:'THE RETRO LAB', wall:'#233b3c', trim:'#93ded0', floor:'#3c6664', light:'#96f0df', base:'#57736c'},
-    {title:'THE LISTENING ROOM', wall:'#3c2230', trim:'#f2a5c1', floor:'#633348', light:'#ff82b4', base:'#622d4d'}
+    {wall:'#382723', trim:'#d6a57a', floor:'#634236', light:'#ffad74'},
+    {wall:'#292343', trim:'#c6e772', floor:'#493762', light:'#c3a3ff'},
+    {wall:'#233b3c', trim:'#93ded0', floor:'#3c6664', light:'#96f0df'},
+    {wall:'#3c2230', trim:'#f2a5c1', floor:'#633348', light:'#ff82b4'}
   ];
 
   function solid(geometry,color,x,y,z,parent,emissive=false) {
@@ -268,24 +255,10 @@ try {
     return solid(new THREE.CylinderGeometry(radius,radius,height,26),color,x,y,z,parent);
   }
 
-  function exhibitSign(exhibit) {
-    return graphic(900,120,(ctx,w,h) => {
-      ctx.fillStyle = exhibit.wall;
-      ctx.fillRect(0,0,w,h);
-      ctx.strokeStyle = exhibit.trim;
-      ctx.lineWidth = 3;
-      ctx.strokeRect(8,8,w-16,h-16);
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillStyle = exhibit.trim;
-      ctx.font = '700 48px system-ui';
-      ctx.fillText(exhibit.title,w/2,h/2);
-    });
-  }
-
   function barberProps(bay) {
     const chair = new THREE.Group();
-    chair.position.set(-1.3,0,.63);
+    chair.position.set(-.1,0,.47);
+    chair.scale.setScalar(1.52);
     chair.rotation.y = -.28;
     bay.add(chair);
     round(.35,.07,'#c4aa8b',0,.07,0,chair);
@@ -324,11 +297,21 @@ try {
       }
     });
     const cube = new THREE.Group();
-    cube.position.set(1.44,1.86,-.63);
+    cube.position.set(0,1.53,.53);
+    cube.scale.setScalar(1.8);
     cube.rotation.set(.25,-.36,.29);
     bay.add(cube);
     box(.49,.49,.49,'#a9c75f',0,0,0,cube);
     sign(.48,.48,dice,0,0,.249,cube);
+      const dots=graphic(180,180,(ctx,w,h)=>{
+        ctx.fillStyle='#bddb73';ctx.fillRect(0,0,w,h);
+        ctx.fillStyle='#38284b';
+        for(const [x,y] of [[.3,.3],[.7,.7]]){
+          ctx.beginPath();ctx.arc(x*w,y*h,14,0,Math.PI*2);ctx.fill();
+        }
+      });
+      const face=sign(.48,.48,dots,.249,0,0,cube);
+      face.rotation.y=Math.PI/2;
     for (let step=0;step<4;step++) {
       const rail = box(.5,.04,.045,'#9d72d2',-1.51,1.35+step*.25,-1.08,bay);
       rail.rotation.z = step%2 ? .26 : -.26;
@@ -388,55 +371,106 @@ try {
     box(3.9,.18,2.48,exhibit.wall,0,3.53,-.1,bay);
     box(.085,3.32,.1,exhibit.trim,side*1.86,1.77,1.14,bay);
     solid(new THREE.BoxGeometry(3.61,.027,.034),exhibit.light,0,3.426,.97,bay,true);
-    box(3.52,.47,.115,exhibit.wall,0,3.18,-.98,bay);
-    sign(3.42,.455,exhibitSign(exhibit),0,3.18,-.917,bay);
-    decorate[index](bay);
+    const objects = new THREE.Group();
+    bay.add(objects);
+    decorate[index](objects);
+
+    if (index === 0) {
+      const mirror = solid(new THREE.CapsuleGeometry(.58,.71,6,30),'#c2966e',0,1.92,-1.066,objects);
+      mirror.scale.z=.068;
+      const glass = solid(new THREE.CapsuleGeometry(.53,.69,6,30),'#b4bdb6',0,1.92,-1.015,objects,true);
+      glass.scale.z=.048;
+      box(1.76,.14,.42,'#bd9469',0,.87,-.87,objects);
+      box(1.63,.41,.34,'#703d30',0,.63,-.89,objects);
+      for(const x of [-.54,0,.54]) box(.16,.032,.031,'#d5ae82',x,.69,-.709,objects);
+      for(const x of [-.72,.72]) solid(new THREE.BoxGeometry(.05,.65,.04),'#ffd8ae',x,1.95,-1.062,objects,true);
+      round(.065,.19,'#365050',.68,1.035,-.86,objects);
+    } else if (index === 1) {
+      box(2.34,.25,.74,'#77549a',0,.48,-.66,objects);
+      box(2.34,.59,.17,'#654389',0,.8,-.98,objects);
+      for(const x of [-1.06,1.06]) {
+        box(.21,.32,.71,'#634384',x,.62,-.63,objects);
+        box(.12,.26,.53,'#30243d',x,.24,-.63,objects);
+      }
+      for(const x of [-.64,0,.64]) box(.6,.08,.52,'#a77dcc',x,.645,-.61,objects);
+      round(.6,.1,'#55416c',0,.56,.64,objects);
+      round(.13,.43,'#432f55',0,.315,.64,objects);
+      round(.42,.065,'#55416c',0,.08,.64,objects);
+      for(const [x,color] of [[-.33,'#ffc179'],[.25,'#c595dd']]) {
+        const cards=box(.21,.023,.31,color,x,.626,.7,objects);
+        cards.rotation.y=x;
+      }
+    } else if (index === 2) {
+      box(2.54,.12,.9,'#a79d84',0,.93,.02,objects);
+      for(const x of [-1.08,1.08]) box(.13,.87,.68,'#4a5e56',x,.445,.02,objects);
+      box(1.39,1,.72,'#b5ae96',-.05,1.52,-.1,objects);
+      box(1.23,.8,.05,'#3e4f46',-.05,1.55,.27,objects);
+      const screen=graphic(640,400,(ctx,w,h)=>{
+        ctx.fillStyle='#172b25';ctx.fillRect(0,0,w,h);
+        ctx.strokeStyle='#44645a';
+        for(let y=8;y<h;y+=10){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+        ctx.fillStyle='#a5f4c8';ctx.font='700 39px monospace';
+        ['PGLN SYSTEMS','> BOOT COMPLETE','> READY'].forEach((line,i)=>ctx.fillText(line,36,94+i*80));
+        ctx.fillRect(218,224,22,28);
+      });
+      sign(1.11,.68,screen,-.05,1.57,.302,objects);
+      solid(new THREE.SphereGeometry(.026,12,8),'#abffc9',.43,1.176,.304,objects,true);
+      box(1.03,.067,.33,'#aba88e',-.05,1.027,.36,objects);
+      for(let row=0;row<3;row++){
+        for(let col=0;col<11;col++) box(.063,.016,.059,'#707c6b',-.47+col*.083,1.065,.275+row*.078,objects);
+      }
+      box(.35,.66,.53,'#a7a58d',.94,1.32,-.03,objects);
+      for(let i=0;i<4;i++) box(.22,.019,.02,'#59675d',.94,1.39+i*.031,.243,objects);
+    } else {
+      box(1.72,.62,.76,'#704563',0,.56,.14,objects);
+      box(1.81,.09,.79,'#b883a1',0,.915,.14,objects);
+      box(1.32,.29,.032,'#442c40',0,.56,.527,objects);
+      for(const x of [-.72,.72]) box(.07,.23,.5,'#452c3f',x,.16,.14,objects);
+      box(1.16,.09,.56,'#372938',0,1.01,.14,objects);
+      round(.257,.042,'#1c1821',-.14,1.083,.14,objects);
+      round(.075,.008,'#e8accc',-.14,1.108,.14,objects);
+      const arm=box(.035,.035,.29,'#d8b4b2',.27,1.105,.13,objects);
+      arm.rotation.y=.34;
+      box(.52,1.06,.52,'#382735',-1.24,.575,.58,objects);
+      for(const [radius,y] of [[.157,.47],[.101,.8]]){
+        const cone=solid(new THREE.CylinderGeometry(radius,radius,.04,25),'#bd8fa9',-1.24,y,.86,objects);
+        cone.rotation.x=Math.PI/2;
+        const cap=solid(new THREE.SphereGeometry(radius*.45,14,10),'#533a50',-1.24,y,.883,objects);
+        cap.scale.z=.4;
+      }
+      for(const [x,y] of [[-.86,2.03],[-.03,2.31]]){
+        const sleeve=solid(new THREE.TorusGeometry(.265,.025,10,32),'#d490aa',x,y,-1.055,objects);
+        sleeve.rotation.z=.17;
+        solid(new THREE.CircleGeometry(.248,36),'#231e27',x,y,-1.052,objects);
+        solid(new THREE.CircleGeometry(.079,22),'#b9789c',x,y,-1.048,objects);
+      }
+    }
+
+    const mount = new THREE.Group();
+    mount.position.set(-side*.99,.66,1.43);
+    mount.rotation.y=-side*.2;
+    objects.add(mount);
+    round(.15,.042,exhibit.wall,0,-.62,0,mount);
+    round(.028,.62,exhibit.trim,0,-.31,0,mount);
+    box(.87,.24,.047,exhibit.wall,0,.025,0,mount);
+    const plaque=graphic(620,165,(ctx,w,h)=>{
+      ctx.fillStyle=exhibit.wall;ctx.fillRect(0,0,w,h);
+      ctx.strokeStyle=exhibit.trim;ctx.lineWidth=3;ctx.strokeRect(6,6,w-12,h-12);
+      ctx.fillStyle=exhibit.trim;ctx.font='700 41px system-ui';
+      ctx.fillText(project.name,23,69,w-46);
+      ctx.font='600 24px monospace';ctx.fillText('VIEW PROJECT',23,122);
+    });
+    sign(.838,.218,plaque,0,.025,.026,mount);
+
+    objects.traverse(mesh => {
+      if (!mesh.isMesh) return;
+      mesh.userData.project = project;
+      displays.push(mesh);
+    });
     const accentLight = new THREE.PointLight(exhibit.light,9.5,5.5,1.8);
     accentLight.position.set(project.x,2.85,project.z+.67);
     scene.add(accentLight);
-    const stand = new THREE.Group();
-    stand.position.set(project.x,0,project.z);
-    stand.rotation.y = project.x < 0 ? .56 : -.56;
-    scene.add(stand);
-    contactShadow(4.3,3.2,project.x,project.z);
-    box(2.1,.09,1.5,exhibit.wall,0,.075,0,stand);
-    const pedestal = box(1.98,.9,1.43,exhibit.base,0,.5,0,stand);
-    for (let x=-.88;x<=.89;x+=.155) {
-      box(.07,.78,.026,exhibit.wall,x,.5,.73,stand);
-    }
-    box(2.03,.036,1.45,exhibit.trim,0,.965,0,stand);
-    box(2.13,.14,1.53,exhibit.base,0,1.055,0,stand);
-    box(2.07,.022,.045,exhibit.trim,0,.996,.755,stand);
-    box(1.9,.06,.65,'#4a5745',0,1.14,0,stand);
-    const frame = box(2.19,1.65,.19,'#252a22',0,2.02,-.069,stand);
-    box(2.11,1.575,.018,exhibit.trim,0,2.02,.03,stand);
-    const poster = sign(2.02,1.51,graphic(672,502,(ctx,w,h) => {
-      const print = ctx.createLinearGradient(0,0,w,h);
-      print.addColorStop(0,'#f9ecd4');
-      print.addColorStop(.98,project.color);
-      ctx.fillStyle = print;ctx.fillRect(0,0,w,h);
-      ctx.strokeStyle = project.ink;
-      ctx.globalAlpha = .12;
-      for(let radius=112;radius<400;radius+=24) {
-        ctx.beginPath();ctx.arc(w-10,h-100,radius,0,Math.PI*2);ctx.stroke();
-      }
-      ctx.globalAlpha = 1;
-      ctx.fillStyle = project.ink;ctx.fillRect(0,0,w,59);
-      ctx.fillStyle = project.color;ctx.font = '700 27px monospace';ctx.fillText(project.type,30,40);
-      ctx.fillStyle = project.ink;
-      const rows = project.label.length;
-      const longest = Math.max(...project.label.map(line => line.length));
-      ctx.font = '900 ' + (longest > 8 ? 92 : 134) + 'px system-ui';
-      project.label.forEach((line,index) => ctx.fillText(line,28,rows === 1 ? 305 : 249 + index*127));
-      ctx.fillRect(30,443,w-60,2);
-      ctx.font = '700 23px monospace';ctx.fillText('PGLN',30,481);
-    }),0,2.02,.043,stand);
-    for (const mesh of [pedestal,frame,poster]) {
-      mesh.userData.project = project;
-      displays.push(mesh);
-    }
   }
-
   function resize() {
     renderer.setSize(innerWidth,innerHeight,false);
     camera.aspect = innerWidth/innerHeight;
