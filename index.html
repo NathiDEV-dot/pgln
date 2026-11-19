@@ -3,75 +3,318 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Explore websites, games, and interactive portfolios built by PGLN.">
-<title>PGLN — Web Projects</title>
+<meta name="description" content="Walk through the PGLN 3D store and discover four websites and interactive projects.">
+<title>PGLN — 3D Store</title>
 <style>
-:root{color-scheme:dark;--bg:#141018;--ink:#fff6ea;--muted:#cec0d1;--line:#ffffff29;--lime:#dbff65}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.55 system-ui,sans-serif}
-a{color:inherit}
-a:focus-visible{outline:3px solid var(--lime);outline-offset:5px}
-.wrap{width:min(1360px,calc(100% - 4rem));margin-inline:auto}
-header,footer{display:flex;justify-content:space-between;align-items:center;padding:1.15rem 0}
-header{border-bottom:1px solid var(--line)}
-.brand{font-size:1.75rem;font-weight:950;letter-spacing:-.1em;text-decoration:none}
-.brand span{color:var(--lime)}
-nav a,.cta,.visit{display:inline-block;text-decoration:none;font-weight:750;border-radius:999px;padding:.6rem 1rem}
-nav a{border:1px solid var(--line)}
-.cta{background:var(--lime);color:#1e2611;padding:.8rem 1.25rem}
-.cta:hover,.visit:hover{filter:brightness(.9)}
-.hero{min-height:clamp(430px,53vw,650px);display:grid;grid-template-columns:1fr 1fr;align-items:center;position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 76% 46%,#623d71 0%,#302033 38%,var(--bg) 74%)}
-.hero-copy{padding:3rem 0;z-index:1}
-.hero h1{font-size:clamp(4rem,8.7vw,9.5rem);line-height:.83;letter-spacing:-.095em;margin:0;font-weight:950}
-.hero h1 em{font-style:normal;color:var(--lime)}
-.hero p{max-width:34ch;color:var(--muted);margin:1.4rem 0;font-size:clamp(1rem,1.6vw,1.22rem)}
-.scene{min-height:340px;height:100%;display:grid;place-items:center;perspective:850px;position:relative;pointer-events:none}
-.scene::before{content:"";position:absolute;width:120%;height:85%;bottom:-43%;transform:rotateX(64deg);background:repeating-linear-gradient(90deg,transparent 0 44px,#eab8ff32 45px 46px),repeating-linear-gradient(0deg,transparent 0 44px,#eab8ff32 45px 46px);mask-image:linear-gradient(transparent,#000 55%)}
-.window{width:min(76%,440px);aspect-ratio:1.4;position:relative;display:grid;place-items:center;background:linear-gradient(145deg,#fbd3fa,#c68dea);color:#291239;border-radius:18px;border:2px solid #fff5;transform:rotateX(12deg) rotateY(-25deg) rotateZ(-10deg);box-shadow:9px 10px #9f61b6,19px 24px #693779,31px 40px 60px #100717}
-.window::before{content:"● ● ●";position:absolute;inset:0 0 auto;padding:.55rem .9rem;border-bottom:1px solid #45275760;letter-spacing:.19em;font-size:.7rem}
-.window span{font-size:clamp(3rem,10vw,9rem);font-weight:950;line-height:1;letter-spacing:-.11em;padding-right:.12em}
-.window i{position:absolute;right:-13%;bottom:-8%;padding:.6em .8em;border-radius:.3em;background:var(--lime);font:900 clamp(1.2rem,4vw,3.5rem)/1 monospace;box-shadow:4px 5px #819a35;transform:rotate(14deg)}
-.shelf{padding-top:clamp(2.5rem,5vw,4.5rem);scroll-margin-top:1rem}
-.shelf>h2{font-size:clamp(2rem,5vw,4rem);letter-spacing:-.075em;margin:0 0 1.4rem;line-height:1}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
-.project{height:100%;display:flex;flex-direction:column;text-decoration:none;background:#201923;border:1px solid var(--line);border-radius:1.2rem;overflow:hidden}
-.art{height:240px;display:grid;place-items:center;position:relative;perspective:600px;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 50% 15%,var(--light),var(--dark) 75%);color:var(--print)}
-.art::after{content:"";position:absolute;z-index:-1;bottom:11%;width:79%;height:15%;border-radius:50%;background:#130d1c70;box-shadow:0 9px 0 #120c1966;transform:rotate(-4deg)}
-.box{width:53%;aspect-ratio:.79;display:grid;place-items:center;position:relative;transform:rotateX(8deg) rotateY(-23deg) rotateZ(-8deg);transform-style:preserve-3d;background:var(--cover);border:1px solid #fff6;box-shadow:inset 0 0 30px #ffffff24,18px 24px 28px #100b15ad;transition:transform .32s ease;font-size:clamp(1.5rem,3vw,3.1rem);font-weight:950;line-height:.83;letter-spacing:-.09em;text-align:center}
-.box::before,.box::after{content:"";position:absolute;background:var(--edge)}
-.box::before{width:21px;height:100%;right:-21px;transform-origin:left;transform:rotateY(77deg);filter:brightness(.85)}
-.box::after{width:100%;height:20px;top:-20px;transform-origin:bottom;transform:rotateX(77deg);filter:brightness(1.25)}
-.project:hover .box,.project:focus-visible .box{transform:rotateX(0) rotateY(12deg) rotateZ(1deg) translateY(-9px)}
-.cut{--light:#943f30;--dark:#462319;--cover:#211510;--edge:#614632;--print:#ffe2b4}
-.game{--light:#8854b8;--dark:#3c2557;--cover:#d6ff65;--edge:#a8c94c;--print:#34204d}
-.os{--light:#549d8d;--dark:#214742;--cover:#bde6dd;--edge:#82a8a2;--print:#172b35}
-.os .box{font-size:clamp(1.1rem,2.3vw,2.1rem)}
-.music{--light:#c34d71;--dark:#5c263d;--cover:#f796ac;--edge:#ac546d;--print:#47162a}
-.music .box{font-family:Georgia,serif;font-style:italic}
-.info{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:1.05rem}
-.type{color:var(--muted);font-size:.875rem;margin:0 0 .35rem}
-.info h3{font-size:1.35rem;line-height:1.12;margin:0;letter-spacing:-.045em}
-.info h3+p{color:var(--muted);margin:.65rem 0 1rem}
-.visit{margin-top:auto;border:1px solid var(--line);color:var(--lime);font-size:.875rem}
-footer{border-top:1px solid var(--line);margin-top:3.5rem;color:var(--muted)}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.box{width:116px}}
-@media(max-width:640px){.wrap{width:calc(100% - 2rem)}.hero{grid-template-columns:1fr;background:radial-gradient(ellipse at 65% 75%,#573766,#19121e 65%)}.hero-copy{padding:2.5rem 0 0}.scene{min-height:250px}.window{width:min(67%,280px)}.scene::before{bottom:-22%;height:59%}.hero h1{font-size:clamp(3.7rem,13vw,5.5rem)}.grid{gap:.65rem}.art{height:155px}.box{width:min(56%,82px)}.info{padding:.75rem}.info h3{font-size:1.12rem}.visit{padding:.45rem .65rem}}
-@media(max-width:340px){.grid{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.box{transition:none}}
+:root{color-scheme:dark;--paper:#f9f3df;--muted:#c6c5ad;--lime:#e5fb83;--panel:#171e19;--line:#c5d4a44d;font:16px/1.4 system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:#1c2720;color:var(--paper)}
+button,a{font:inherit;color:inherit}button{cursor:pointer}a:focus-visible,button:focus-visible,canvas:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+#world{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none;cursor:grab}#world:active{cursor:grabbing}
+header{position:fixed;inset:0 0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem clamp(1rem,3vw,3rem);background:linear-gradient(#101711e8,transparent);pointer-events:none}
+header>*{pointer-events:auto}.brand{display:flex;align-items:center;gap:.8rem}.brand strong{font-size:1.9rem;letter-spacing:-.1em;line-height:1}.brand span{font:700 .72rem/1.2 monospace;color:var(--lime);padding-left:.8rem;border-left:1px solid var(--line);letter-spacing:.11em}
+button,.open{border:1px solid var(--line);border-radius:.45rem;background:var(--panel);padding:.52rem .8rem}
+button:hover{border-color:var(--lime)}
+#status{position:fixed;top:37%;left:50%;transform:translateX(-50%);padding:1rem;background:var(--panel);border-radius:.5rem;text-align:center;max-width:min(88vw,26rem)}
+#hint{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);margin:0;padding:.5rem .8rem;border-radius:.35rem;background:#161d18ed;border:1px solid var(--line);text-align:center;font-size:.83rem;white-space:nowrap}
+#controls{position:fixed;bottom:1rem;left:1rem;display:grid;grid-template-columns:repeat(3,2.8rem);gap:.3rem}
+#controls button{touch-action:none;padding:0;min-height:2.55rem;font-size:1.2rem;user-select:none}
+#controls [data-key="w"]{grid-column:2}#controls [data-key="a"]{grid-column:1}
+#panel{position:fixed;right:1rem;bottom:1rem;width:min(22rem,calc(100% - 2rem));padding:1.2rem;border:1px solid var(--line);border-radius:.75rem;background:var(--panel);box-shadow:0 10px 40px #0005}
+#panel h2{margin:0;line-height:1.1;font-size:1.7rem;letter-spacing:-.05em}
+#panel p{margin:.65rem 0 1rem;color:var(--muted)}
+#close-detail{float:right;margin:-.4rem -.45rem 0 .4rem}
+.open{display:inline-block;text-decoration:none;background:var(--lime);border-color:var(--lime);color:#1c2617;font-weight:800}
+dialog{width:min(28rem,calc(100% - 2rem));max-height:85dvh;color:var(--paper);background:var(--panel);border:1px solid var(--line);border-radius:.8rem;padding:1.25rem}
+dialog::backdrop{background:#101611a8}.dialog-head{display:flex;justify-content:space-between;align-items:center;gap:1rem}.dialog-head h1{margin:0;font-size:1.45rem;letter-spacing:-.04em}
+.directory{list-style:none;padding:0;margin:1rem 0 0}.directory li{display:flex;align-items:center;justify-content:space-between;gap:.4rem;border-top:1px solid var(--line);padding:.65rem 0}.directory a{text-underline-offset:.25rem}.directory button{font-size:.78rem;white-space:nowrap}
+[hidden]{display:none!important}
+@media(max-width:670px){#hint{bottom:6.55rem;font-size:.72rem}#panel{bottom:9rem}header{padding:.8rem 1rem}.brand strong{font-size:1.6rem}}
 </style>
 </head>
-<body id="top">
-<header class="wrap"><a class="brand" href="#top">PGLN<span>.</span></a><nav aria-label="Main navigation"><a href="#work">Showroom</a></nav></header>
-<main class="wrap">
-<section class="hero" aria-labelledby="title"><div class="hero-copy"><h1 id="title">The web<br><em>showroom.</em></h1><p>Explore websites, browser games and interactive portfolios built by PGLN.</p><a class="cta" href="#work">Browse projects</a></div><div class="scene" aria-hidden="true"><div class="window"><span>PGLN</span><i>&lt;/&gt;</i></div></div></section>
-<section class="shelf" id="work" aria-labelledby="shelf-title"><h2 id="shelf-title">On display</h2><div class="grid">
-<article><a class="project" href="https://the-cut-barber-studio-nkosi.nathinice0125.chatgpt.site"><div class="art cut" aria-hidden="true"><div class="box">THE<br>CUT<span>.</span></div></div><div class="info"><p class="type">Business website</p><h3>THE CUT</h3><p>A barber studio website with a gallery and appointment booking.</p><span class="visit">Visit website</span></div></a></article>
-<article><a class="project" href="https://games-night-charades.nathinice0125.chatgpt.site"><div class="art game" aria-hidden="true"><div class="box">Game<br>Night</div></div><div class="info"><p class="type">Browser game</p><h3>Game Night</h3><p>A charades game to play with friends.</p><span class="visit">Visit website</span></div></a></article>
-<article><a class="project" href="https://nkosi-desktop-portfolio.nathinice0125.chatgpt.site"><div class="art os" aria-hidden="true"><div class="box"><small>▦</small> Portfolio OS</div></div><div class="info"><p class="type">Interactive portfolio</p><h3>Portfolio OS</h3><p>A portfolio you explore through a retro desktop interface.</p><span class="visit">Visit website</span></div></a></article>
-<article><a class="project" href="https://frvky-desktop-recreation.nathinice0125.chatgpt.site"><div class="art music" aria-hidden="true"><div class="box">$tussy</div></div><div class="info"><p class="type">Creative experiment</p><h3>$tussy — Mfana ko West</h3><p>A creative portfolio built around a device-inspired interface.</p><span class="visit">Visit website</span></div></a></article>
-</div></section>
-</main>
-<footer class="wrap"><span>PGLN</span><a href="#top">Back to top</a></footer>
+<body>
+<canvas id="world" tabindex="0" aria-label="PGLN 3D store. Use W A S D to walk, arrow keys to look, and Enter to inspect the display in front of you."></canvas>
+<header>
+  <div class="brand"><strong>PGLN</strong><span>3D STORE</span></div>
+  <button id="show-directory" type="button">Directory</button>
+</header>
+<p id="status" role="status">Opening the store…</p>
+<div id="controls" aria-label="Walk controls" hidden>
+  <button data-key="w" type="button" aria-label="Walk forward">↑</button>
+  <button data-key="a" type="button" aria-label="Step left">←</button>
+  <button data-key="s" type="button" aria-label="Walk backward">↓</button>
+  <button data-key="d" type="button" aria-label="Step right">→</button>
+</div>
+<p id="hint" hidden></p>
+<section id="panel" aria-labelledby="project-title" hidden>
+  <button id="close-detail" type="button" aria-label="Close project details">×</button>
+  <h2 id="project-title"></h2>
+  <p id="project-description"></p>
+  <a class="open" id="open-project" target="_blank" rel="noopener">Open website</a>
+</section>
+<dialog id="directory">
+  <div class="dialog-head"><h1>Store directory</h1><form method="dialog"><button>Close</button></form></div>
+  <ul class="directory" id="directory-list"></ul>
+</dialog>
+<script type="module">
+const projects = [
+  { name:'THE CUT', label:['THE','CUT.'], type:'BARBER STUDIO', color:'#f2a36e', ink:'#211715', description:'A barber studio website with a gallery and appointment booking.', url:'https://the-cut-barber-studio-nkosi.nathinice0125.chatgpt.site', x:-4.45, z:2.1 },
+  { name:'Game Night', label:['GAME','NIGHT'], type:'BROWSER GAME', color:'#c3d97f', ink:'#172719', description:'A charades game to play with friends.', url:'https://games-night-charades.nathinice0125.chatgpt.site', x:4.45, z:2.1 },
+  { name:'Portfolio OS', label:['PORTFOLIO','OS'], type:'INTERACTIVE PORTFOLIO', color:'#91c5b7', ink:'#142820', description:'A retro desktop you can explore in your browser.', url:'https://nkosi-desktop-portfolio.nathinice0125.chatgpt.site', x:-4.45, z:-3.7 },
+  { name:'$tussy — Mfana ko West', label:['$TUSSY'], type:'CREATIVE PORTFOLIO', color:'#d79db0', ink:'#3a1f2b', description:'A creative portfolio built around a device-inspired interface.', url:'https://frvky-desktop-recreation.nathinice0125.chatgpt.site', x:4.45, z:-3.7 }
+];
+const canvas = document.querySelector('#world');
+const directory = document.querySelector('#directory');
+const panel = document.querySelector('#panel');
+const openProject = document.querySelector('#open-project');
+const status = document.querySelector('#status');
+const controls = document.querySelector('#controls');
+const hint = document.querySelector('#hint');
+const keys = new Set();
+let visitDisplay;
+
+for (const project of projects) {
+  const item = document.createElement('li');
+  const link = document.createElement('a');
+  link.textContent = project.name;
+  link.href = project.url;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  const locate = document.createElement('button');
+  locate.textContent = 'Go to display';
+  locate.hidden = true;
+  locate.dataset.locate = '';
+  locate.addEventListener('click', () => {
+    directory.close();
+    visitDisplay(project);
+  });
+  item.append(link, locate);
+  document.querySelector('#directory-list').append(item);
+}
+document.querySelector('#show-directory').addEventListener('click', () => {
+  keys.clear();
+  directory.showModal();
+});
+document.querySelector('#close-detail').addEventListener('click', () => {
+  panel.hidden = true;
+  canvas.focus();
+});
+
+function showProject(project, focus = false) {
+  document.querySelector('#project-title').textContent = project.name;
+  document.querySelector('#project-description').textContent = project.description;
+  openProject.href = project.url;
+  panel.hidden = false;
+  if (focus) openProject.focus();
+}
+
+try {
+  const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color('#374839');
+  scene.fog = new THREE.Fog('#374839', 18, 35);
+  const camera = new THREE.PerspectiveCamera(68, 1, .05, 42);
+  camera.rotation.order = 'YXZ';
+  camera.position.set(0, 1.72, 7.65);
+  let yaw = 0;
+  let pitch = -.044;
+  const displays = [];
+  const ray = new THREE.Raycaster();
+  const pointer = new THREE.Vector2();
+
+  function box(width, height, depth, color, x, y, z, parent = scene) {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(width,height,depth), new THREE.MeshLambertMaterial({color}));
+    mesh.position.set(x,y,z);
+    parent.add(mesh);
+    return mesh;
+  }
+
+  function graphic(width, height, draw) {
+    const source = document.createElement('canvas');
+    source.width = width;
+    source.height = height;
+    draw(source.getContext('2d'), width, height);
+    const texture = new THREE.CanvasTexture(source);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    return texture;
+  }
+
+  function sign(width, height, texture, x, y, z, parent = scene) {
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width,height), new THREE.MeshBasicMaterial({map:texture}));
+    mesh.position.set(x,y,z);
+    parent.add(mesh);
+    return mesh;
+  }
+
+  scene.add(new THREE.HemisphereLight('#fff7db','#667a58',2.1));
+  const keyLight = new THREE.DirectionalLight('#ffe5bd',2.1);
+  keyLight.position.set(-4,7,4);
+  scene.add(keyLight);
+
+  box(14,.18,19,'#697565',0,-.1,0);
+  for (let x = -6; x <= 6; x++) box(.018,.008,19,'#435846',x,.001,0);
+  for (let z = -9; z <= 9; z++) box(14,.008,.018,'#435846',0,.001,z);
+  box(3.1,.018,18.5,'#a6976e',0,.008,0);
+  for (const x of [-1.48,1.48]) box(.035,.012,18.5,'#e2ce95',x,.02,0);
+  box(14,4.7,.2,'#304837',0,2.35,-9.5);
+  box(14,4.7,.2,'#273c2f',0,2.35,9.5);
+  box(.2,4.7,19,'#375143',-7,2.35,0);
+  box(.2,4.7,19,'#375143',7,2.35,0);
+  box(14,.2,19,'#27372c',0,4.75,0);
+  for (const z of [-7,-3,1,5,9]) {
+    box(14,.22,.18,'#1e2d24',0,4.57,z);
+    for (const x of [-4.6,0,4.6]) {
+      const lamp = new THREE.Mesh(new THREE.BoxGeometry(2.4,.05,.11),new THREE.MeshBasicMaterial({color:'#fff3c7'}));
+      lamp.position.set(x,4.42,z);
+      scene.add(lamp);
+    }
+  }
+  for (let x = -6.6; x <= 6.7; x += .38) box(.16,4.6,.16,'#455a3e',x,2.3,-9.32);
+  sign(4.7,1.3,graphic(1024,288,(ctx,w,h) => {
+    ctx.fillStyle = '#203e2e';ctx.fillRect(0,0,w,h);
+    ctx.strokeStyle = '#d6f38b';ctx.lineWidth = 3;ctx.strokeRect(15,15,w-30,h-30);
+    ctx.textAlign = 'center';ctx.fillStyle = '#e5fb83';ctx.font = '900 120px system-ui';ctx.fillText('PGLN',w/2,147);
+    ctx.font = '700 35px monospace';ctx.fillText('WEB PROJECTS',w/2,219);
+  }),0,3.5,-9.19);
+
+  for (const project of projects) {
+    const stand = new THREE.Group();
+    stand.position.set(project.x,0,project.z);
+    stand.rotation.y = project.x < 0 ? .56 : -.56;
+    scene.add(stand);
+    box(2.55,.07,1.82,'#314435',0,.04,0,stand);
+    const pedestal = box(2.42,.94,1.7,'#24392e',0,.52,0,stand);
+    box(2.5,.12,1.76,'#bfae87',0,1.05,0,stand);
+    box(1.9,.06,.65,'#4a5745',0,1.14,0,stand);
+    const frame = box(2.15,1.64,.17,'#1e3027',0,2.02,-.06,stand);
+    const poster = sign(2.02,1.51,graphic(672,502,(ctx,w,h) => {
+      ctx.fillStyle = project.color;ctx.fillRect(0,0,w,h);
+      ctx.fillStyle = project.ink;ctx.fillRect(0,0,w,59);
+      ctx.fillStyle = project.color;ctx.font = '700 27px monospace';ctx.fillText(project.type,30,40);
+      ctx.fillStyle = project.ink;
+      const rows = project.label.length;
+      const longest = Math.max(...project.label.map(line => line.length));
+      ctx.font = '900 ' + (longest > 8 ? 92 : 134) + 'px system-ui';
+      project.label.forEach((line,index) => ctx.fillText(line,28,rows === 1 ? 305 : 249 + index*127));
+      ctx.fillRect(30,443,w-60,3);
+      ctx.font = '700 23px monospace';ctx.fillText('PGLN',30,481);
+    }),0,2.02,.035,stand);
+    for (const mesh of [pedestal,frame,poster]) {
+      mesh.userData.project = project;
+      displays.push(mesh);
+    }
+  }
+
+  function resize() {
+    renderer.setSize(innerWidth,innerHeight,false);
+    camera.aspect = innerWidth/innerHeight;
+    camera.updateProjectionMatrix();
+  }
+  addEventListener('resize',resize);
+  resize();
+  visitDisplay = project => {
+    const side = Math.sign(project.x);
+    camera.position.set(project.x-side*2.45,1.72,project.z+2.6);
+    yaw = Math.atan2(camera.position.x-project.x,camera.position.z-project.z);
+    pitch = 0;
+    showProject(project,true);
+  };
+  document.querySelectorAll('[data-locate]').forEach(button => button.hidden = false);
+
+  function inspect(x,y,keyboard = false) {
+    pointer.set(x,y);
+    ray.setFromCamera(pointer,camera);
+    const hit = ray.intersectObjects(displays,false)[0];
+    if (hit) showProject(hit.object.userData.project,keyboard);
+    else panel.hidden = true;
+  }
+
+  let drag;
+  canvas.addEventListener('pointerdown',event => {
+    if (event.button !== 0) return;
+    canvas.focus({preventScroll:true});
+    drag = {id:event.pointerId,x:event.clientX,y:event.clientY,distance:0};
+    canvas.setPointerCapture(event.pointerId);
+  });
+  canvas.addEventListener('pointermove',event => {
+    if (drag?.id !== event.pointerId) return;
+    const dx = event.clientX-drag.x;
+    const dy = event.clientY-drag.y;
+    drag.distance += Math.abs(dx)+Math.abs(dy);
+    drag.x = event.clientX;
+    drag.y = event.clientY;
+    yaw -= dx*.004;
+    pitch = THREE.MathUtils.clamp(pitch+dy*.004,-.83,.8);
+  });
+  canvas.addEventListener('pointerup',event => {
+    if (drag?.id !== event.pointerId) return;
+    if (drag.distance < 8) inspect(event.clientX/innerWidth*2-1,1-event.clientY/innerHeight*2);
+    drag = undefined;
+  });
+  canvas.addEventListener('pointercancel',() => drag = undefined);
+  const movement = ['w','a','s','d','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'];
+  addEventListener('keydown',event => {
+    if (directory.open || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.target instanceof HTMLButtonElement || event.target instanceof HTMLAnchorElement) return;
+    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+    if (movement.includes(key)) {
+      event.preventDefault();
+      keys.add(key);
+    } else if (key === 'Enter' && event.target === canvas) {
+      event.preventDefault();
+      inspect(0,0,true);
+    }
+  });
+  addEventListener('keyup',event => keys.delete(event.key.length === 1 ? event.key.toLowerCase() : event.key));
+  addEventListener('blur',() => keys.clear());
+  for (const button of controls.querySelectorAll('button')) {
+    const key = button.dataset.key;
+    button.addEventListener('pointerdown',event => {
+      button.setPointerCapture(event.pointerId);
+      keys.add(key);
+    });
+    button.addEventListener('lostpointercapture',() => keys.delete(key));
+    button.addEventListener('click',event => {
+      if (event.detail === 0) walk(key === 'd' ? .35 : key === 'a' ? -.35 : 0,key === 'w' ? .35 : key === 's' ? -.35 : 0);
+    });
+  }
+
+  function canStand(x,z) {
+    return Math.abs(x) < 6.56 && Math.abs(z) < 9.05 &&
+      !projects.some(project => Math.abs(x-project.x) < 1.58 && Math.abs(z-project.z) < 1.45);
+  }
+
+  function walk(side,forward) {
+    const x = camera.position.x + Math.cos(yaw)*side - Math.sin(yaw)*forward;
+    const z = camera.position.z - Math.sin(yaw)*side - Math.cos(yaw)*forward;
+    if (canStand(x,camera.position.z)) camera.position.x = x;
+    if (canStand(camera.position.x,z)) camera.position.z = z;
+  }
+
+  let lastTime = performance.now();
+  renderer.setAnimationLoop(now => {
+    const dt = Math.min((now-lastTime)/1000,.05);
+    lastTime = now;
+    yaw += (Number(keys.has('ArrowLeft'))-Number(keys.has('ArrowRight')))*dt*1.65;
+    pitch = THREE.MathUtils.clamp(pitch+(Number(keys.has('ArrowUp'))-Number(keys.has('ArrowDown')))*dt*1.4,-.83,.8);
+    const side = Number(keys.has('d'))-Number(keys.has('a'));
+    const forward = Number(keys.has('w'))-Number(keys.has('s'));
+    const speed = 3.25*dt/(side && forward ? Math.SQRT2 : 1);
+    if (side || forward) walk(side*speed,forward*speed);
+    camera.rotation.set(pitch,yaw,0);
+    renderer.render(scene,camera);
+  });
+  status.hidden = true;
+  controls.hidden = false;
+  hint.textContent = matchMedia('(pointer: coarse)').matches ? 'Use the arrows to walk · Drag to look · Tap a display' : 'WASD to walk · Drag or use arrow keys to look · Click a display';
+  hint.hidden = false;
+} catch (error) {
+  status.textContent = 'The 3D store couldn’t start. Open the directory to visit the projects.';
+  console.error(error);
+}
+</script>
 </body>
 </html>
