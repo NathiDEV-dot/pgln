@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Walk through the PGLN 3D store and discover four websites and interactive projects.">
+<meta name="description" content="Walk through the PGLN 3D store and discover websites, platforms and interactive projects.">
 <title>PGLN — 3D Store</title>
 <style>
 :root{color-scheme:dark;--paper:#f9f3df;--muted:#c6c5ad;--lime:#f7dca3;--panel:#202720;--line:#f7dca34d;font:16px/1.4 system-ui,sans-serif}
@@ -60,7 +60,11 @@ const projects = [
   { name:'THE CUT', description:'A barber studio website with a gallery and appointment booking.', url:'https://the-cut-barber-studio-nkosi.nathinice0125.chatgpt.site', x:-4.45, z:2.1 },
   { name:'Game Night', description:'A charades game to play with friends.', url:'https://games-night-charades.nathinice0125.chatgpt.site', x:4.45, z:2.1 },
   { name:'Portfolio OS', description:'A retro desktop you can explore in your browser.', url:'https://nkosi-desktop-portfolio.nathinice0125.chatgpt.site', x:-4.45, z:-3.7 },
-  { name:'$tussy — Mfana ko West', description:'A creative portfolio built around a device-inspired interface.', url:'https://frvky-desktop-recreation.nathinice0125.chatgpt.site', x:4.45, z:-3.7 }
+  { name:'$tussy — Mfana ko West', description:'A creative portfolio built around a device-inspired interface.', url:'https://frvky-desktop-recreation.nathinice0125.chatgpt.site', x:4.45, z:-3.7 },
+  { name:'Saelune Active', description:'A live activewear storefront built on the reusable Iaac Commerce platform, with product variants, checkout and delivery.', url:'https://dnmpjdbyl3ja5.cloudfront.net', x:-4.45, z:-9.5 },
+  { name:'Primary Onboarding', description:'A business operations platform for South African freelancers and SMEs, covering quotes, agreements, invoicing, expenses and reports.', url:'https://d3223h59o0v7yn.cloudfront.net', x:4.45, z:-9.5 },
+  { name:'Serverless Blog & Custom CMS', description:'A publishing platform with editorial review, scheduling, media, newsletters and a public blog.', url:'https://d2d5b0j6iun0gv.cloudfront.net', x:-4.45, z:-15.3 },
+  { name:'PGLN.Auth', description:'A reusable .NET 10 authentication and identity platform for ASP.NET Core applications.', url:'https://github.com/NuGetPackagesPGLN/PGLN.JwtAuth', action:'View source on GitHub', x:4.45, z:-15.3 }
 ];
 const canvas = document.querySelector('#world');
 const directory = document.querySelector('#directory');
@@ -103,6 +107,7 @@ function showProject(project, focus = false) {
   document.querySelector('#project-title').textContent = project.name;
   document.querySelector('#project-description').textContent = project.description;
   openProject.href = project.url;
+  openProject.textContent = project.action ?? 'Open website';
   panel.hidden = false;
   if (focus) openProject.focus();
 }
@@ -119,9 +124,12 @@ try {
   renderer.shadowMap.autoUpdate = false;
   renderer.shadowMap.needsUpdate = true;
   const scene = new THREE.Scene();
+  const roomDepth = 31;
+  const roomCenter = -6;
+  const backWall = roomCenter-roomDepth/2;
   scene.background = new THREE.Color('#374839');
-  scene.fog = new THREE.Fog('#374839', 18, 35);
-  const camera = new THREE.PerspectiveCamera(68, 1, .05, 42);
+  scene.fog = new THREE.Fog('#374839', 22, 42);
+  const camera = new THREE.PerspectiveCamera(68, 1, .05, 48);
   camera.rotation.order = 'YXZ';
   camera.position.set(0, 1.76, 8.5);
   let yaw = 0;
@@ -216,23 +224,24 @@ try {
     ctx.strokeRect(.5,.5,w-1,h-1);
   });
   stone.wrapS = stone.wrapT = THREE.RepeatWrapping;
-  stone.repeat.set(11,15);
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(14,19),new THREE.MeshStandardMaterial({map:stone,roughness:.69,bumpMap:stone,bumpScale:.012}));
+  stone.repeat.set(11,25);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(14,roomDepth),new THREE.MeshStandardMaterial({map:stone,roughness:.69,bumpMap:stone,bumpScale:.012}));
   floor.rotation.x = -Math.PI/2;
+  floor.position.z = roomCenter;
   scene.add(floor);
   floor.receiveShadow = true;
 
-  box(2.8,.009,18,'#394639',0,.012,0);
-  for (const x of [-1.35,1.35]) box(.026,.012,18,brass,x,.022,0);
-  box(14,4.7,.2,darkGreen,0,2.35,-9.5);
+  box(2.8,.009,roomDepth-1,'#394639',0,.012,roomCenter);
+  for (const x of [-1.35,1.35]) box(.026,.012,roomDepth-1,brass,x,.022,roomCenter);
+  box(14,4.7,.2,darkGreen,0,2.35,backWall);
   box(14,4.7,.2,plaster,0,2.35,9.5);
-  box(.2,4.7,19,plaster,-7,2.35,0);
-  box(.2,4.7,19,plaster,7,2.35,0);
-  box(14,.2,19,'#302e26',0,4.75,0);
+  box(.2,4.7,roomDepth,plaster,-7,2.35,roomCenter);
+  box(.2,4.7,roomDepth,plaster,7,2.35,roomCenter);
+  box(14,.2,roomDepth,'#302e26',0,4.75,roomCenter);
   for (const x of [-6.88,6.88]) {
-    box(.13,.85,19,walnut,x,.425,0);
-    box(.15,.045,19,brass,x,.865,0);
-    for (let z = -8; z <= 8; z += 2) {
+    box(.13,.85,roomDepth,walnut,x,.425,roomCenter);
+    box(.15,.045,roomDepth,brass,x,.865,roomCenter);
+    for (let z = backWall+1.5; z <= 8; z += 2) {
       box(.19,3.9,.07,'#514739',x,2.79,z);
     }
   }
@@ -250,10 +259,10 @@ try {
   });
   const stainedWalnut = new THREE.MeshStandardMaterial({map:woodGrain,roughness:.51,bumpMap:woodGrain,bumpScale:.0027});
   for (let x = -6.6; x <= 6.7; x += .26) {
-    box(.115,4.6,.18,walnut,x,2.3,-9.31).material = stainedWalnut;
+    box(.115,4.6,.18,walnut,x,2.3,backWall+.19).material = stainedWalnut;
   }
-  box(14,.07,.17,brass,0,.25,-9.15);
-  box(5.65,2.15,.25,'#292b23',0,3.03,-9.07);
+  box(14,.07,.17,brass,0,.25,backWall+.35);
+  box(5.65,2.15,.25,'#292b23',0,3.03,backWall+.43);
   const masthead = graphic(1152,420,(ctx,w,h) => {
     const gradient = ctx.createLinearGradient(0,0,w,h);
     gradient.addColorStop(0,'#344236');
@@ -270,11 +279,11 @@ try {
     ctx.font = '600 34px monospace';
     ctx.fillText('W E B   S H O W R O O M',w/2,300);
   });
-  sign(5.47,1.99,masthead,0,3.03,-8.935);
+  sign(5.47,1.99,masthead,0,3.03,backWall+.565);
 
   const lightSurface = new THREE.MeshBasicMaterial({color:glow});
   const metal = new THREE.MeshLambertMaterial({color:brass});
-  for (const z of [-7,-3,1,5,8.5]) {
+  for (const z of [-19,-15,-11,-7,-3,1,5,8.5]) {
     box(13.85,.12,.13,'#4f4131',0,4.52,z);
     for (const x of [-4.45,0,4.45]) {
       const fixture = new THREE.Mesh(new THREE.CylinderGeometry(.17,.26,.24,24),metal);
@@ -291,7 +300,11 @@ try {
     {wall:'#382723', trim:'#d6a57a', floor:'#634236', light:'#ffad74'},
     {wall:'#292343', trim:'#c6e772', floor:'#493762', light:'#c3a3ff'},
     {wall:'#233b3c', trim:'#93ded0', floor:'#3c6664', light:'#96f0df'},
-    {wall:'#3c2230', trim:'#f2a5c1', floor:'#633348', light:'#ff82b4'}
+    {wall:'#3c2230', trim:'#f2a5c1', floor:'#633348', light:'#ff82b4'},
+    {wall:'#394044', trim:'#efbc94', floor:'#67625b', light:'#f9c2a2'},
+    {wall:'#283653', trim:'#b9d5fb', floor:'#425a70', light:'#9cc2ff'},
+    {wall:'#4b3c2d', trim:'#e9c785', floor:'#705339', light:'#ffd19a'},
+    {wall:'#282f3a', trim:'#9ce4d2', floor:'#404b59', light:'#7febd4'}
   ];
 
   function solid(geometry,color,x,y,z,parent,emissive=false) {
@@ -406,7 +419,103 @@ try {
     sign(.77,.77,record,1.34,2.04,-.963,bay);
   }
 
-  const decorate = [barberProps,gameProps,labProps,listeningProps];
+  function activewearProps(bay) {
+    for(const x of [-1.08,1.08]) round(.039,1.94,'#ad947c',x,1.01,-.52,bay);
+    const rail=round(.032,2.16,'#ad947c',0,1.94,-.52,bay);
+    rail.rotation.z=Math.PI/2;
+    for(const [x,color] of [[-.67,'#d6a083'],[0,'#dfc9b1'],[.67,'#71827e']]){
+      const fabric=new THREE.Shape();
+      fabric.moveTo(-.19,.35);fabric.lineTo(-.33,.2);fabric.lineTo(-.24,.075);
+      fabric.lineTo(-.14,.14);fabric.lineTo(-.16,-.27);fabric.lineTo(.16,-.27);
+      fabric.lineTo(.14,.14);fabric.lineTo(.24,.075);fabric.lineTo(.33,.2);
+      fabric.lineTo(.19,.35);fabric.quadraticCurveTo(0,.17,-.19,.35);
+      solid(new THREE.ExtrudeGeometry(fabric,{depth:.033,bevelSize:.012,bevelThickness:.012,bevelSegments:2}),color,x,1.47,-.47,bay);
+      const hanger=solid(new THREE.TorusGeometry(.074,.012,8,20),'#a6947f',x,1.866,-.49,bay);
+      hanger.scale.y=.95;
+    }
+    box(1.86,.108,.65,'#a88d72',0,.42,.27,bay,.024);
+    for(const x of [-.73,.73]) box(.1,.44,.54,'#625b4e',x,.219,.27,bay);
+    for(const [x,color] of [[-.46,'#b98266'],[.05,'#81988d'],[.51,'#dfc3a1']]){
+      box(.39,.077,.29,color,x,.51,.29,bay,.024);
+      box(.35,.067,.23,color,x,.581,.3,bay,.023);
+    }
+  }
+
+  function onboardingProps(bay) {
+    box(2.4,.125,.82,'#b8aba0',0,.95,.04,bay,.029);
+    for(const x of [-1.02,1.02]) box(.14,.86,.7,'#434c58',x,.46,.04,bay);
+    box(1.29,.8,.085,'#354353',-.21,1.45,-.17,bay,.028);
+    round(.16,.042,'#485265',-.21,1.035,-.16,bay);
+    box(.055,.22,.065,'#485265',-.21,1.13,-.16,bay);
+    const screen=graphic(640,410,(ctx,w,h)=>{
+      ctx.fillStyle='#e4edf8';ctx.fillRect(0,0,w,h);
+      ctx.fillStyle='#30466b';ctx.fillRect(0,0,w,72);
+      ctx.fillStyle='#ffffff';ctx.font='700 33px system-ui';ctx.fillText('Business dashboard',27,48);
+      ctx.fillStyle='#334966';ctx.font='600 26px system-ui';
+      ['Quotes','Agreements','Invoices'].forEach((label,i)=>{
+        ctx.fillText(label,28,131+i*54);ctx.fillRect(211,111+i*54,102+i*56,18);
+      });
+    });
+    sign(1.18,.713,screen,-.21,1.45,-.124,bay);
+    for(const [i,color] of ['#a7bbd1','#cbd3db','#eddbbd'].entries()){
+      const paper=box(.39,.023,.52,color,.64,1.028+i*.023,.18,bay);
+      paper.rotation.y=i*.09-.12;
+    }
+    box(.66,.11,.59,'#526b8a',.25,.55,.88,bay,.035);
+    box(.6,.51,.08,'#526b8a',.25,.78,1.14,bay,.025);
+    round(.06,.4,'#3b4654',.25,.31,.88,bay);
+    round(.28,.055,'#3b4654',.25,.11,.88,bay);
+  }
+
+  function editorialProps(bay) {
+    for(const x of [-1.28,1.28])box(.12,1.95,.35,'#8c6346',x,1,-.72,bay);
+    for(const y of [.27,.76,1.24,1.74]){
+      box(2.55,.09,.39,'#92674a',0,y,-.72,bay);
+      for(const [i,color] of ['#ae7157','#cfaf78','#788a77','#e1cbae','#76594d'].entries()){
+        box(.18,.26+(i%3)*.045,.27,color,-1.05+i*.21,y+.19,-.68,bay,.013);
+      }
+    }
+    round(.55,.12,'#9e7654',.47,.69,.36,bay);
+    round(.12,.59,'#644934',.47,.34,.36,bay);
+    round(.34,.075,'#644934',.47,.06,.36,bay);
+    const spread=graphic(540,300,(ctx,w,h)=>{
+      ctx.fillStyle='#f3dfb3';ctx.fillRect(0,0,w,h);
+      ctx.fillStyle='#926c51';ctx.fillRect(w/2-2,0,4,h);
+      ctx.fillStyle='#52443a';ctx.font='700 34px Georgia';ctx.fillText('Editorial',24,57);
+      for(let i=0;i<6;i++){ctx.fillRect(24,89+i*25,206-(i%3)*16,5);ctx.fillRect(297,64+i*27,204-(i%2)*20,5);}
+    });
+    box(.61,.035,.33,'#a88769',.47,.766,.36,bay);
+    const pages=sign(.594,.31,spread,.47,.786,.36,bay);
+    pages.rotation.x=-Math.PI/2;
+    solid(new THREE.CylinderGeometry(.16,.27,.19,24),'#d6a666',.88,1.41,.2,bay);
+    solid(new THREE.CircleGeometry(.22,24),'#ffe0aa',.88,1.313,.2,bay,true).rotation.x=Math.PI/2;
+    round(.023,.64,'#986640',.88,1.07,.2,bay);
+  }
+
+  function authProps(bay) {
+    for(const x of [-.69,.14]){
+      box(.73,1.86,.64,'#273038',x,1.015,-.56,bay,.036);
+      for(let i=0;i<8;i++){
+        const y=.35+i*.18;
+        box(.58,.116,.045,'#465361',x,y,-.221,bay,.012);
+        for(const offset of [-.19,-.13]){
+          solid(new THREE.SphereGeometry(.018,10,7),i%3===0?'#f9cf8e':'#86efc1',x+offset,y,-.193,bay,true);
+        }
+      }
+    }
+    round(.36,.095,'#52646d',.75,.57,.43,bay);
+    box(.15,.49,.19,'#38494f',.75,.3,.43,bay);
+    const lock=new THREE.Group();
+    lock.position.set(.75,1.07,.43);
+    bay.add(lock);
+    modeledObjects.add(lock);
+    const shackle=solid(new THREE.TorusGeometry(.23,.047,12,36,Math.PI),'#b3c3cd',0,.21,0,lock);
+    shackle.material=finish('#b3c3cd',.26,.48);
+    box(.57,.49,.25,'#729994',0,.015,0,lock,.048);
+    solid(new THREE.CircleGeometry(.051,22),'#263a40',0,.06,.127,lock);
+    box(.034,.12,.012,'#263a40',0,-.015,.132,lock);
+  }
+  const decorate = [barberProps,gameProps,labProps,listeningProps,activewearProps,onboardingProps,editorialProps,authProps];
   for (const [index,project] of projects.entries()) {
     const exhibit = exhibits[index];
     const side = Math.sign(project.x);
@@ -486,7 +595,7 @@ try {
       }
       box(.35,.66,.53,'#a7a58d',.94,1.32,-.03,objects,.022);
       for(let i=0;i<4;i++) box(.22,.019,.02,'#59675d',.94,1.39+i*.031,.243,objects);
-    } else {
+    } else if (index === 3) {
       box(1.72,.62,.76,'#704563',0,.56,.14,objects,.035);
       box(1.81,.09,.79,'#b883a1',0,.915,.14,objects);
       box(1.32,.29,.032,'#442c40',0,.56,.527,objects);
@@ -625,7 +734,7 @@ try {
   }
 
   function canStand(x,z) {
-    return Math.abs(x) < 6.56 && Math.abs(z) < 9.05 &&
+    return Math.abs(x) < 6.56 && z > backWall+.45 && z < 9.05 &&
       !projects.some(project => {
         const side = Math.sign(project.x);
         const angle = -side*.23;
